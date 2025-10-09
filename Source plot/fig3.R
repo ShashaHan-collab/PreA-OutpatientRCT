@@ -430,3 +430,4 @@ output_pdf <- "fig3.pdf"
 margins <- "10 10 10 10"
 cmd <- sprintf('pdfcrop --margins "%s" %s %s', margins, input_pdf, output_pdf)
 system(cmd)
+rm(list = ls())
