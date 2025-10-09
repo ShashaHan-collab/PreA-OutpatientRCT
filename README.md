@@ -1,9 +1,9 @@
 # PreAOutpatientRCT
 
-Code for analyzing and visualizing the data for results presented in a recent paper: Tao, X., Zhou, S., Ding, K. et al. Integrating LLMs into real-world outpatient workflows for pre-specialist consultation: A randomized controlled clinical trial. Working paper (2025). 
+Code for analyzing and visualizing the data for the results presented in a recent paper: Tao, X., Zhou, S., Ding, K. et al. Integrating LLMs into real-world outpatient workflows for pre-specialist consultation: A randomized controlled clinical trial. Working paper (2025). 
 
 # Prerequisites
-## Prerequisite softwares 
+## Prerequisite software 
 * TODO:
 ## Prerequisite third-party R packages
 * TODO:
