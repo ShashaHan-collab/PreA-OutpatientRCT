@@ -8,7 +8,7 @@ library(cowplot)
 library(grid)
 library(grImport2)
 
-# load data_a
+# load data
 load("fig3.RData")
 dat_a$group<-factor(dat_a$group,levels = c('PreA-only','PreA-human','No-PreA'))
 
@@ -431,3 +431,4 @@ margins <- "10 10 10 10"
 cmd <- sprintf('pdfcrop --margins "%s" %s %s', margins, input_pdf, output_pdf)
 system(cmd)
 rm(list = ls())
+
