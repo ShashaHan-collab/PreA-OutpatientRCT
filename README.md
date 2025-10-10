@@ -30,6 +30,6 @@ This repository contains the code classification analysis and data visualization
 * **Source plot**: Plotting code for generating the figures listed above. 
 
 # Usage
-* Classification Analysis: Run the code in the **Classification analysis/** folder to reproduce the classification results.
+* Classification Analysis: Run the code in the **Classification analysis/** folder to reproduce the classification analysis.
 
 * Data Visualization: Use the data in **Source data/** with the plotting code in **Source plot/** to regenerate Figures 3, 4, and Extended Data Figure 1.
