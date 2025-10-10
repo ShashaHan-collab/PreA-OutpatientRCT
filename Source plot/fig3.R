@@ -8,34 +8,17 @@ library(cowplot)
 library(grid)
 library(grImport2)
 
-# load data
+# load data_a
 load("fig3.RData")
-dat_a$group<-factor(dat_a$group,levels = c('PreA-only','PreA-human','No-PreA'))
 
 # color_a
 custom_colors <- c("#b61024",'#f4a08d',"#73889c")
 group_colors <- c("#e2939c","#fff0eb","#bec8d3")
 
-# split_bin
-bin_width <- 0.5
-breaks_all <- scales::fullseq(c(0,max(dat_a$service_min, na.rm = TRUE)),bin_width)
-
-# hist_data_a
-hist_data <- dat_a %>% group_by(group) %>%
-  summarise(
-    hist_obj = list(hist(
-      service_min,
-      breaks = breaks_all,
-      plot = FALSE,right = F
-    )),
-    left = map(hist_obj, ~ .x$breaks[-length(.x$breaks)]),
-    count = map(hist_obj, ~ .x$counts)
-  ) %>% unnest(c(left, count))
-
 # hist plot
-p_a_hist <-ggplot(dat_a, aes(x = service_min, group = group)) +
+p_a_hist <-ggplot(dat_a_hist, aes(x = service_min, group = group)) +
   geom_step(
-    data = hist_data,
+    data = dat_a_hist,
     aes(x = left, y = count, color = group),
     linewidth = 0.8,
     alpha = 0.7
@@ -64,23 +47,8 @@ p_a_hist <-ggplot(dat_a, aes(x = service_min, group = group)) +
   scale_x_continuous(limits = c(0, 30), breaks = seq(0, 30, 5), expand = c(0.02, 0)) +
   coord_cartesian(clip = "off")
 
-# box data_a
-box_stats <- dat_a %>%
-  group_by(group) %>%
-  reframe(
-    lower  = quantile(service_min, 0.25, na.rm = TRUE),
-    middle = median(service_min, na.rm = TRUE),
-    upper  = quantile(service_min, 0.75, na.rm = TRUE),
-    IQR    = IQR(service_min, na.rm = TRUE),
-    ymin   = min(service_min[service_min >= (quantile(service_min, 0.25, na.rm = TRUE) -
-                                               1.5 * IQR(service_min, na.rm = TRUE))], na.rm = TRUE),
-    ymax   = max(service_min[service_min <= (quantile(service_min, 0.75, na.rm = TRUE) +
-                                               1.5 * IQR(service_min, na.rm = TRUE))], na.rm = TRUE),
-    x = unique(group)
-  )
-
-# box plot
-p_a_box <- ggplot(box_stats, aes(x = x, fill = x)) +
+# a box plot
+p_a_box <- ggplot(dat_a_box, aes(x = x, fill = x)) +
   geom_boxplot(
     aes(ymin = ymin,lower = lower,middle = middle,upper = upper,ymax = ymax),
     stat = "identity",
@@ -173,11 +141,6 @@ print(p_b)
 dev.off()
 rm(list = setdiff(ls(), c("dat_c", "dat_d", "dat_e1", "dat_e2")))
 
-# color_c
-group_colors<-c("No-PreA" = "#bec8d3",
-                "PreA-human" = "#fff0eb",
-                "PreA-only" = "#e2939c")
-
 # plot_c
 p_c <- ggplot(dat_c, aes(x = variable, y = mean, fill = mode)) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.7), width = 0.7) +
@@ -199,7 +162,8 @@ p_c <- ggplot(dat_c, aes(x = variable, y = mean, fill = mode)) +
   geom_segment(aes(y = 0, yend = 5, x = -Inf, xend = -Inf),
                color = "black", linewidth = 0.5) +
   scale_y_continuous(limits = c(0, 5), expand = c(0, 0)) +
-  scale_fill_manual(values = group_colors, guide = guide_legend(title = NULL) ) +
+  scale_fill_manual(values = c("No-PreA" = "#bec8d3","PreA-human" = "#fff0eb", "PreA-only" = "#e2939c"), 
+                    guide = guide_legend(title = NULL) ) +
   theme(
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
@@ -215,43 +179,24 @@ p_c <- ggplot(dat_c, aes(x = variable, y = mean, fill = mode)) +
   ) +
   coord_cartesian(clip = "off")
 
-# save
+# save_c
 svg("c.svg", width = 3.84, height = 4.88, bg = "transparent")
 print(p_c)
 dev.off()
 rm(list = setdiff(ls(), c("dat_d", "dat_e1", "dat_e2")))
 
-# color_d
-group_colors <- c("#F8AE54", "#88CED8")
-
-# box data_d
-box_stats <- dat_d %>%
-  group_by(Group) %>%
-  summarise(
-    lower  = quantile(Value, 0.25, na.rm = TRUE),
-    middle = median(Value, na.rm = TRUE),
-    upper  = quantile(Value, 0.75, na.rm = TRUE),
-    IQR    = IQR(Value, na.rm = TRUE),
-    .groups = "drop"
-  ) %>% rowwise() %>%
-  mutate(
-    ymin = min(dat_d$Value[dat_d$Group == Group &
-                             dat_d$Value >= (lower - 1.5 * IQR)], na.rm = TRUE),
-    ymax = max(dat_d$Value[dat_d$Group == Group &
-                             dat_d$Value <= (upper + 1.5 * IQR)], na.rm = TRUE)
-  ) %>% ungroup()
-dat_d <- dat_d %>% left_join(box_stats, by = "Group")
 
 # plot_d
-p_d <- ggplot(dat_d, aes(x = Group, y = Value, fill = Group)) +
+p_d <- ggplot(dat_d, aes(x = Group, fill = Group)) +
   geom_boxplot(
     aes(ymin = ymin,lower = lower,middle = middle,upper = upper,ymax = ymax),
+    stat = "identity", 
     width = 0.5,
     outlier.shape = NA,
     color = "black",
     linewidth = 0.5
   ) +
-  scale_fill_manual(values = group_colors) +
+  scale_fill_manual(values = c("#F8AE54", "#88CED8")) +
   geom_segment(
     aes(x = as.numeric(Group) - 0.1, xend = as.numeric(Group) + 0.1,
         y = ymin, yend = ymin),
@@ -366,11 +311,9 @@ dev.off()
 rm(list = setdiff(ls(), c("dat_e2")))
 
 # plot_e2
-xlabel<-c("Interpretation","Recording",
-          "Across-discipline","Suggestion","Communication")
 p <- ggplot(dat_e2, aes(x = as.factor(variable), y = proportions)) +
   geom_col(position = "dodge", fill = "#D6EAF8", width = 0.6) +
-  scale_x_discrete(labels = xlabel) +
+  scale_x_discrete(labels = c("Interpretation","Recording", "Across-discipline","Suggestion","Communication")) +
   labs(x = "", y = "Proportions") +
   theme_minimal() +
   theme(
@@ -431,4 +374,3 @@ margins <- "10 10 10 10"
 cmd <- sprintf('pdfcrop --margins "%s" %s %s', margins, input_pdf, output_pdf)
 system(cmd)
 rm(list = ls())
-
