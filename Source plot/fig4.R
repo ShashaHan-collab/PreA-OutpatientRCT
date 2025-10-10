@@ -4,7 +4,6 @@ library(scales)
 library(cowplot)
 library(grImport2)
 library(grid)
-library(readxl)
 
 # load data
 load("fig4.RData")
@@ -282,5 +281,6 @@ margins <- "10 10 10 10"
 cmd <- sprintf('pdfcrop --margins "%s" %s %s', margins, input_pdf, output_pdf)
 system(cmd)
 rm(list = ls())
+
 
 
