@@ -38,7 +38,7 @@ sta_fun <- function(df, subtitle, legend=FALSE){
       scale_fill_manual(values = custom_colors) +
       scale_y_continuous(
         labels = percent_format(accuracy = 1),
-        limits = c(0, 1.1),  # 为顶部标签留出空间
+        limits = c(0, 1.1), 
         expand = c(0, 0)
       ) +
       scale_x_discrete(
@@ -297,3 +297,4 @@ margins <- "10 10 10 10"
 cmd <- sprintf('pdfcrop --margins "%s" %s %s', margins, input_pdf, output_pdf)
 system(cmd)
 rm(list = ls())
+
