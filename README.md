@@ -30,6 +30,6 @@ This repository contains the code classification analysis and data visualization
 * **Source plot**: Plotting code for generating the figures listed above. 
 
 # Usage
-* Classification Analysis: Run the code in the **Classification analysis/** folder to reproduce the classification analysis.
+* Classification Analysis: The **Classification analysis/** folder directory contains the code architecture and methodology used in our analysis. However, the actual clinical notes data are not included due to privacy concerns. Researchers can reference this code structure to understand our analytical approach.
 
 * Data Visualization: Use the data in **Source data/** with the plotting code in **Source plot/** to regenerate Figures 3, 4, and Extended Data Figure 1.
