@@ -21,9 +21,9 @@ This repository contains the code classification analysis and data visualization
 
 # Descriptions of the files
 * Classification analysis: Code for classification analysis on physician clinical notes.
-* *  **across-domain-classification/**
+ *   **across-domain-classification/**
     Classification analysis across all clinical domains
-* * **domain-specific-classification/**
+ *  **domain-specific-classification/**
     Classification analysis for individual clinical domains
     
 * Source data: All the data required to reproduce Figures 3 and 4, and Extended Data Fig. 1. 
