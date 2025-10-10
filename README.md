@@ -20,14 +20,14 @@ This repository contains the code classification analysis and data visualization
 
 
 # Descriptions of the files
-* Classification analysis: Code for classification analysis on physician clinical notes.
+* **Classification analysis** Code for classification analysis on physician clinical notes.
   - **across-domain-classification/**
     Classification analysis across all clinical domains
   - **domain-specific-classification/**
     Classification analysis for individual clinical domains
     
-* Source data: All the data required to reproduce Figures 3 and 4, and Extended Data Fig. 1. 
-* Source plot: Plotting code for generating the figures listed above. 
+* **Source data** All the data required to reproduce Figures 3 and 4, and Extended Data Fig. 1. 
+* **Source plot** Plotting code for generating the figures listed above. 
 
 # Usage
 * Classification Analysis: Run the code in the **Classification analysis/** folder to reproduce the classification results.
