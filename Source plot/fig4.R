@@ -233,7 +233,7 @@ dev.off()
 svg("b3.svg", width = 10.78, height = 8.62, bg = "transparent")
 print(labeled_plot3)
 dev.off()
-# rm(list = ls())
+rm(list = ls())
 
 # combine to fig4
 image_files <- c("a1.svg", "b1.svg", "a2.svg", "b2.svg", "a3.svg", "b3.svg")
@@ -282,3 +282,4 @@ margins <- "10 10 10 10"
 cmd <- sprintf('pdfcrop --margins "%s" %s %s', margins, input_pdf, output_pdf)
 system(cmd)
 rm(list = ls())
+
