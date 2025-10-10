@@ -20,6 +20,6 @@ Code for classification analysis and data visualization in a recent paper: Tao, 
 
 
 # Descriptions of the files
-* TODO:
-* Source data: The folder contains all the data for reproducing Figures 3 and 4, and Extended Data Fig. 1 in the paper : Tao, X., Zhou, S., Ding, K. et al. Integrating LLMs into real-world outpatient workflows for pre-specialist consultation: A randomized controlled clinical trial. Working paper (2025). 
-* Source plot: The folder contains the plotting code for reproducing Figures 3 and 4, and Extended Data Fig. 1 in the paper : Tao, X., Zhou, S., Ding, K. et al. Integrating LLMs into real-world outpatient workflows for pre-specialist consultation: A randomized controlled clinical trial. Working paper (2025). 
+* Classification analysis: The folder contains the code for classification analysis on physician clinical notes in the paper: Tao, X., Zhou, S., Ding, K. et al. Integrating LLMs into real-world outpatient workflows for pre-specialist consultation: A randomized controlled clinical trial. Working paper (2025). 
+* Source data: The folder contains all the data for reproducing Figures 3 and 4, and Extended Data Fig. 1 in the paper: Tao, X., Zhou, S., Ding, K. et al. Integrating LLMs into real-world outpatient workflows for pre-specialist consultation: A randomized controlled clinical trial. Working paper (2025). 
+* Source plot: The folder contains the plotting code for reproducing Figures 3 and 4, and Extended Data Fig. 1 in the paper: Tao, X., Zhou, S., Ding, K. et al. Integrating LLMs into real-world outpatient workflows for pre-specialist consultation: A randomized controlled clinical trial. Working paper (2025). 
