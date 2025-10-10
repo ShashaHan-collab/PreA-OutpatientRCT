@@ -4,7 +4,8 @@ Code for classification analysis and data visualization in a recent paper: Tao, 
 
 # Prerequisites
 ## Prerequisite software 
-* TODO:
+* Python
+* R
 ## Prerequisite third-party R packages
 * dplyr
 * purrr
