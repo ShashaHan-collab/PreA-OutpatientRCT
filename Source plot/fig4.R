@@ -4,13 +4,14 @@ library(scales)
 library(cowplot)
 library(grImport2)
 library(grid)
+library(readxl)
 
 # load data
 load("fig4.RData")
 
 # plot_a function
-sta_fun <- function(df, subtitle, legend=FALSE){
-  
+sta_fun <- function(df_prop, subtitle, legend=FALSE){
+
   variables_ordered <- c(
     "PreA-only",
     "PreA-human",
@@ -18,27 +19,23 @@ sta_fun <- function(df, subtitle, legend=FALSE){
   )
   right_vars <- variables_ordered[1:2]
   left_vars <- "PreA-only or PreA-human"
-  
-  df_prop <- df %>%
-    group_by(Group) %>%
-    mutate(Proportion = Count / sum(Count), Label = percent(Proportion, accuracy = 0.1))
-  
+
   df_prop$Category <- factor(df_prop$Category, levels = c("Disagreement", "Agreement", "Blank"))
   df_prop$Group <- factor(df_prop$Group , levels = c("PreA-only or PreA-human", "PreA-only", "PreA-human"))
-  
+
   custom_colors <- c(
     "Agreement" = "#fff5d7",
     "Blank" = "#eaeae9",
     "Disagreement" = "#daecf9"
   )
-  
+
   pl <- function(df_prop, show_y){
     p <- ggplot(df_prop, aes(x = Group, y = Proportion, fill = Category)) +
       geom_bar(stat = "identity", width = if(show_y) 1.2 else 0.7, color = "black") +
       scale_fill_manual(values = custom_colors) +
       scale_y_continuous(
         labels = percent_format(accuracy = 1),
-        limits = c(0, 1.1), 
+        limits = c(0, 1.1),  # 为顶部标签留出空间
         expand = c(0, 0)
       ) +
       scale_x_discrete(
@@ -72,9 +69,9 @@ sta_fun <- function(df, subtitle, legend=FALSE){
         legend.text = element_text(size = if (legend) 30 else 0)
       )+annotate("segment",x =-Inf, xend = -Inf, y = 0, yend = 1,colour = "black",linewidth = 0.8)+
       annotate("segment",x = if(show_y) 0.1 else -Inf, xend = if(show_y) 6 else -Inf, y = 0, yend = 0,colour = "black",linewidth = 0.8)
-    
+
     inner_labels <- df_prop %>% filter(Category != "Disagreement")
-    
+
     p <- p + geom_text(
       data = inner_labels,
       aes(label = Label),
@@ -86,17 +83,17 @@ sta_fun <- function(df, subtitle, legend=FALSE){
       group_by(Group) %>%
       mutate(y_top = sum(Proportion)) %>%
       filter(Category == "Disagreement")
-    
+
     p <- p + geom_text(
       data = top_annot,
       aes(x = Group, y = y_top + 0.06, label = Label),
       size = 11,
       color = "black"
     )
-    
+
     return(p)
   }
-  
+
   p1l <- pl(filter(df_prop, Group  %in% left_vars), show_y = TRUE)
   p1r <- pl(filter(df_prop, Group  %in% right_vars), show_y = FALSE)
   inset1 <- ggplotGrob(p1r)
@@ -104,7 +101,7 @@ sta_fun <- function(df, subtitle, legend=FALSE){
   p1_combined <- ggdraw(p1l) + draw_grob(inset1, x = 0.38, y = 0.16, width = 0.6, height = 0.7)
   p <- plot_grid(left_top_label,p1_combined,ncol = 1,rel_heights = c(0.2, 1))
   return(if (legend) p1l else p)
-  
+
 }
 
 # legend_a
@@ -129,18 +126,7 @@ print(sta_fun(dat_a_test, "Test ordering"))
 dev.off()
 rm(list = setdiff(ls(), c("dat_b_history", "dat_b_diag", "dat_b_test")))
 
-# b_data
-cat_levels <- c("PreA referral reports", "Physician notes")
-grp_levels <- c("PreA-only or PreA-human", "PreA-only", "PreA-human")
-data_list <- list(dat_b_history, dat_b_diag, dat_b_test)
-data_list <- lapply(data_list, function(df) {
-  df$Catagory <- factor(df$Catagory, levels = cat_levels)
-  df$Group <- factor(df$Group, levels = grp_levels)
-  return(df)
-})
-dat_b_history <- data_list[[1]]
-dat_b_diag <- data_list[[2]]
-dat_b_test <- data_list[[3]]
+# plot_b function
 variables_ordered <- c(
   "PreA-only",
   "PreA-human",
@@ -150,7 +136,6 @@ right_vars <- variables_ordered[1:2]
 left_vars <- "PreA-only or PreA-human"
 custom_colors <- c("PreA referral reports" = "#ffe3eb", "Physician notes" = "#b0c2dc")
 
-# plot_b function
 pl <- function(df, show_y, legend=FALSE){
   p <- ggplot(df, aes(x = Group, y = mean, fill = Catagory)) +
     geom_bar(stat = "identity", position = position_dodge(width = 0.7), width = 0.7) +
@@ -248,7 +233,7 @@ dev.off()
 svg("b3.svg", width = 10.78, height = 8.62, bg = "transparent")
 print(labeled_plot3)
 dev.off()
-rm(list = ls())
+# rm(list = ls())
 
 # combine to fig4
 image_files <- c("a1.svg", "b1.svg", "a2.svg", "b2.svg", "a3.svg", "b3.svg")
@@ -272,11 +257,11 @@ draw_picture_at <- function(pic, x, y, width = 0.38, height = 0.18) {
   popViewport()
 }
 draw_labeled_picture <- function(label1, pic1, label2, pic2, y, label_x = 0.165, label_y_offset = 0.085) {
-  grid.text(label1, x = label_x, y = y + label_y_offset, 
+  grid.text(label1, x = label_x, y = y + label_y_offset,
             gp = gpar(fontsize = 10, fontface = "bold"))
   draw_picture_at(pic1, x = 0.28, y = y)
-  
-  grid.text(label2, x = 0.42, y = y + label_y_offset, 
+
+  grid.text(label2, x = 0.42, y = y + label_y_offset,
             gp = gpar(fontsize = 10, fontface = "bold"))
   draw_picture_at(pic2, x = 0.55, y = y)
 }
@@ -297,4 +282,3 @@ margins <- "10 10 10 10"
 cmd <- sprintf('pdfcrop --margins "%s" %s %s', margins, input_pdf, output_pdf)
 system(cmd)
 rm(list = ls())
-
