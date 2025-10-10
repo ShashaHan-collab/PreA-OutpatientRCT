@@ -15,6 +15,8 @@ Code for classification analysis and data visualization in a recent paper: Tao, 
 * cowplot
 * grid
 * grImport2
+* scales
+
 
 # Descriptions of the files
 * TODO:
