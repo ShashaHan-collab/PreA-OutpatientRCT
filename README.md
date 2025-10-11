@@ -12,6 +12,8 @@ This repository contains the code classification analysis and data visualization
 * numpy
 * scipy
 * umap-learn
+* scikit-learn
+* datasets
 * tqdm
 * *(All other modules used, such as `itertools`, are part of the Python Standard Library.)*
 ## Prerequisite R packages
