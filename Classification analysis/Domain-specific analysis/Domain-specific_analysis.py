@@ -63,11 +63,11 @@ for method, dim in dimensions:
         group2_data = viz_df[viz_df['mode'] == mode2][dim]
         u_stat, p_value = stats.mannwhitneyu(group1_data, group2_data, alternative='two-sided')
 
-        mw_pairwise_results.append({'方法': method, '维度': dim, '组别1': mode1, '组别2': mode2, 'p值': p_value,})
+        mw_pairwise_results.append({'Methods': method, 'Dim': dim, 'Group1': mode1, 'Group2': mode2, 'p_values': p_value,})
 
 mw_results_df = pd.DataFrame(mw_pairwise_results)
-mw_results_df = mw_results_df.sort_values(by=['方法', '维度', '组别1', '组别2'])
-mw_p_value_table = pd.pivot_table(mw_results_df, values=['p值'], index=['方法', '维度'], columns=['组别1', '组别2'], aggfunc='first')
+mw_results_df = mw_results_df.sort_values(by=['Methods', 'Dim', 'Group1', 'Group2'])
+mw_p_value_table = pd.pivot_table(mw_results_df, values=['p_values'], index=['Methods', 'Dim'], columns=['Group1', 'Group2'], aggfunc='first')
 mw_formatted_p_table = mw_p_value_table.applymap(lambda x: f"{x:.4e}" if x < 0.001 else f"{x:.4f}")
 print("\n----- Mann-Whitney U test table(p value) -----")
 print(mw_formatted_p_table.to_string())
