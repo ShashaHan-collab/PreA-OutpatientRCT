@@ -5,6 +5,15 @@ This repository contains the code classification analysis and data visualization
 ## Prerequisite software 
 * Python (version 3.7 or higher)
 * R (version 4.0 or higher)
+## Prerequisite Python packages
+* transformers
+* torch
+* pandas
+* numpy
+* scipy
+* umap-learn
+* tqdm
+*(All other modules used, such as `itertools`, are part of the Python Standard Library.)*
 ## Prerequisite R packages
 * dplyr
 * purrr
