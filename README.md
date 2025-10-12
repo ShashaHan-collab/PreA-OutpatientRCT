@@ -40,9 +40,6 @@ This repository contains the code classification analysis and data visualization
 ```
 [CLS]Field 1[SEP]Field 2[SEP]Field 3[SEP]...[/CLS]
 ```
-
-  - **across-domain-classification/**:
-    Classification analysis across all clinical domains.
     
 `train_CLS.py` for training and testing the vanilla BERT classification model;
 
