@@ -30,8 +30,26 @@ This repository contains the code classification analysis and data visualization
 
 # Descriptions of the files
 * **Classification analysis**: Code for classification analysis on physician clinical notes.
+  
+  All datasets should be formatted in `jsonl` format with the following structure:
+```jsonl
+{"data": "[CLS]Field 1[SEP]Field 2[SEP]Field 3[SEP]...[/CLS]", "label": 0}
+{"data": "[CLS]Field 1[SEP]Field 2[SEP]Field 3[SEP]...[/CLS]", "label": 1}
+```
+ The fields which be considered in training and analysis are combined in BERT format (using [SEP] token to split)
+```
+[CLS]Field 1[SEP]Field 2[SEP]Field 3[SEP]...[/CLS]
+```
+
   - **across-domain-classification/**:
-    Classification analysis across all clinical domains
+    Classification analysis across all clinical domains.
+    
+`train_CLS.py` for training and testing the vanilla BERT classification model;
+
+`train_CLS.py` for training and testing the supervised SimCSE classification model;
+
+`bootstrap.py` and `p_values.py` for one-sided bootstrap tests.
+
   - **domain-specific-classification/**:
     Classification analysis for individual clinical domains
 * **Source data**: All the data required to reproduce Figures 3 and 4, and Extended Data Fig. 1. 
