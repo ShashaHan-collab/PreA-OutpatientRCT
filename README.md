@@ -50,8 +50,8 @@ This repository contains the code classification analysis and data visualization
 
 `bootstrap.py` and `p_values.py` for one-sided bootstrap tests.
 
-  - **domain-specific-classification/**:
-    Classification analysis for individual clinical domains
+`domain_specific.py` for clinical domain-specific Uniform Manifold Approximation and Projection and Mann-Whitney U tests.
+
 * **Source data**: All the data required to reproduce Figures 3 and 4, and Extended Data Fig. 1. 
 * **Source plot**: Plotting code for generating the figures listed above. 
 
