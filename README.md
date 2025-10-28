@@ -29,6 +29,7 @@ This repository contains the code classification analysis and data visualization
 * grid
 * grImport2
 * scales
+* plotrix
 
 # Descriptions of the files
 * **Classification analysis**: Code for classification analysis on physician clinical notes.
