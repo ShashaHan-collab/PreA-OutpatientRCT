@@ -44,10 +44,7 @@ sta_fun <- function(df_prop, subtitle, legend=FALSE){
         labels = if (show_y) {
           c("PreA-only or PreA-human" = "PreA-assisted")
         } else {
-          c(
-            "PreA-only" = "PreA-only",
-            "PreA-human" = "PreA-human"
-          )
+          c("PreA-only" = "PreA-only", "PreA-human" = "PreA-human")
         }
       ) +
       labs(x = NULL, y = "Proportion(%)", fill = "Category") +
@@ -73,26 +70,9 @@ sta_fun <- function(df_prop, subtitle, legend=FALSE){
       annotate("segment",x = if(show_y) 0.1 else -Inf, xend = if(show_y) 6 else -Inf, y = 0, yend = 0,colour = "black",linewidth = 0.8)
 
     inner_labels <- df_prop %>% filter(Category != "Disagreement")
-
-    p <- p + geom_text(
-      data = inner_labels,
-      aes(label = Label),
-      position = position_stack(vjust = 0.5),
-      size = 11,
-      color = "black"
-    )
-    top_annot <- df_prop %>%
-      group_by(Group) %>%
-      mutate(y_top = sum(Proportion)) %>%
-      filter(Category == "Disagreement")
-
-    p <- p + geom_text(
-      data = top_annot,
-      aes(x = Group, y = y_top + 0.06, label = Label),
-      size = 11,
-      color = "black"
-    )
-
+    p <- p + geom_text(data = inner_labels, aes(label = Label), position = position_stack(vjust = 0.5), size = 11,color = "black")  
+    top_annot <- df_prop %>% group_by(Group) %>% mutate(y_top = sum(Proportion)) %>% filter(Category == "Disagreement")
+    p <- p + geom_text(data = top_annot, aes(x = Group, y = y_top + 0.06, label = Label), size = 11, color = "black")
     return(p)
   }
 
@@ -209,3 +189,4 @@ p_test <- ggdraw() +
   draw_label("No. of participants", x = 0.35, y = 0.07, hjust = 0, vjust = 1, size = 36)
 
 ggsave("b3.pdf", plot = p_test, width = 13.78, height = 7.82)
+
