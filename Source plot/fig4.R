@@ -21,7 +21,7 @@ lendat <- lendat %>%
   mutate(文本长度 = ifelse(文本长度 > 1800, rescale.x(文本长度, 1600, 1800, 2850, 3000), 文本长度))
 
 timdat <- timdat %>% 
-  mutate(录音时长 = ifelse(录音时长 > 14, rescale.x(录音时长, 13, 14, 20.5, 21), 录音时长))
+  mutate(录音时长 = ifelse(录音时长 > 14, rescale.x(录音时长, 13, 14, 20, 21), 录音时长))
 
 # plot_a1
 p_a1<-ggplot(dat_a, aes(x = mean_文本长度, y = 录音来源省, fill = area)) +
@@ -91,7 +91,7 @@ p_a2 <- ggplot(dat_a, aes(x = mean_时长, y = 录音来源省, fill = area)) +
   scale_x_continuous(
     limits = c(0, 16),
     breaks = seq(0, 16, by = 1),
-    labels = c(seq(0, 14, by = 1), 20.5, 21)
+    labels = c(seq(0, 14, by = 1), 20, 21)
   ) +
   theme(legend.text = element_text(size = 12),
         legend.position = 'none',
@@ -173,3 +173,4 @@ ggsave('a.pdf',p_a,width=7,height =8)
 ggsave('b.pdf',p_b,width=4,height =8)
 
 rm(list = ls())
+
