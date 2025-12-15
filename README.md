@@ -1,7 +1,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17330614.svg)](https://doi.org/10.5281/zenodo.17330614)
 
 # PreAOutpatientRCT
-This repository contains the code classification analysis and data visualization for the paper: Tao, X., Zhou, S., Ding, K. et al. An LLM chatbot to facilitate primary-to-specialist care transitions: a randomized controlled trial. Nature Medicine. Forthcoming (2025). 
+This repository contains the code classification analysis and data visualization for the paper: Tao, X., Zhou, S., Ding, K. et al. An LLM chatbot to facilitate primary-to-specialist care transitions: a randomized controlled trial. Nature Medicine. Forthcoming (2026). 
 
 # Prerequisites
 ## Prerequisite software 
