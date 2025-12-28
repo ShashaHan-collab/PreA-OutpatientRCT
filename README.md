@@ -3,6 +3,8 @@
 # PreAOutpatientRCT
 This repository contains the code classification analysis and data visualization for the paper: Tao, X., Zhou, S., Ding, K. et al. An LLM chatbot to facilitate primary-to-specialist care transitions: a randomized controlled trial. Nature Medicine. Forthcoming (2026). 
 
+Behind the paper:https://communities.springernature.com/manage/posts/301897
+
 # Prerequisites
 ## Prerequisite software 
 * Python (version 3.7 or higher)
